@@ -14,9 +14,8 @@ def download_webpage(url):
 
 
 def start_web_server(directory, port=8000):
-    os.chdir(directory)  # Переходим в директорию с сайтом
+    os.chdir(directory)
 
-    # Настраиваем и запускаем локальный веб-сервер
     Handler = http.server.SimpleHTTPRequestHandler
     with socketserver.TCPServer(("", port), Handler) as httpd:
         print("Сервер запущен на порту", port)
@@ -29,14 +28,11 @@ if __name__ == "__main__":
     webpage_content = download_webpage(website_url)
     print("Веб-страница успешно загружена.")
 
-    # Создаем директорию для сохранения сайта
     site_name = "downloaded_website"
     if not os.path.exists(site_name):
         os.makedirs(site_name)
 
-    # Сохраняем содержимое веб-страницы
     with open(os.path.join(site_name, "index.html"), 'wb') as f:
         f.write(webpage_content)
 
-    # Запускаем веб-сервер
     start_web_server(site_name)
